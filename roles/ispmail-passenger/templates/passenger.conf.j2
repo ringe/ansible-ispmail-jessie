@@ -1,0 +1,5 @@
+<IfModule mod_passenger.c>
+  PassengerRoot /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+  PassengerDefaultRuby /usr/local/rbenv/shims/ruby
+  PassengerFriendlyErrorPages {{ 'On' if passenger_friendly_error_pages else 'Off' }}
+</IfModule>

@@ -1,0 +1,21 @@
+---
+- name: install required binary packages
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+  - libapache2-mod-passenger
+  - build-essential
+  - vim
+  - ruby-dev
+  - libruby
+  - zlib1g-dev
+
+- name: Upload Passenger configuration
+  template: src={{item}}.j2 dest=/etc/apache2/mods-available/{{item}}
+  with_items:
+  - passenger.conf
+  - passenger.load
+  notify: restart apache2
+
+- name: Enable passenger
+  apache2_module: state=present name=passenger
+  notify: restart apache2
