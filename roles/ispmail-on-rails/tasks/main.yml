@@ -1,0 +1,72 @@
+---
+- name: install required binary packages
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+    - libmysqlclient-dev
+    - unzip
+
+#- name: clone the ispmail-on-rails repo
+#  git: repo=http://github.com/ringe/ispmail-on-rails
+#    dest=/var/www/ispmail-on-rails
+#    update=no
+
+- name: Set destination folder and bundle exec command
+  set_fact:
+    ispmail_destination: "/var/www/ispmail-on-rails-{{ispmail_on_rails_version}}"
+    bundle_exec: '. /etc/profile && RAILS_ENV=production DB_USER=root DB_PASSWORD="" bundle exec'
+
+- name: Download the rails app
+  shell: gem unpack ispmail-on-rails -v{{ispmail_on_rails_version}} chdir="/var/www"
+    creates={{ispmail_destination}}
+
+- name: Install bundle
+  bundler: state=present chdir={{ispmail_destination}} executable="/usr/local/rbenv/shims/bundle"
+  notify: restart apache
+
+- name: Migrate the database
+  shell: "{{bundle_exec}} rake db:migrate"
+  args:
+    chdir: "{{ispmail_destination}}"
+
+#- name: install the rails app
+#  shell: ./bin/setup chdir="{{ispmail_destination}}"
+#  notify: restart apache2
+
+- name: Generate secret key base
+  shell: ruby -e "require 'securerandom'; puts SecureRandom.hex(64)"
+  register: generated_secret_key_base
+
+- name: Create Apache vhost configuration for HTTPS (RoundCube and PHPmyadmin)
+  template: src=webmail.conf-443.j2 dest=/etc/apache2/sites-available/default-ssl.conf
+  notify: restart apache
+
+- name: Configure rails database user
+  lineinfile: dest={{ispmail_destination}}/.env
+    regexp="DB_USER"
+    line="DB_USER=mailuser"
+    state=present create=yes
+
+- name: Configure rails database password
+  lineinfile: dest={{ispmail_destination}}/.env
+    regexp="DB_PASSWORD"
+    line="DB_PASSWORD={{ispmail_mysql_mailuser_password}}"
+    state=present create=yes
+
+- name: Add secret key base
+  lineinfile: dest={{ispmail_destination}}/.env
+    regexp="SECRET_KEY_BASE"
+    line="SECRET_KEY_BASE={{generated_secret_key_base.stdout}}"
+    state=present create=yes
+
+- name: Set up action mailer
+  lineinfile: dest={{ispmail_destination}}/config/environments/production.rb
+    regexp="config.action_mailer.default_url_options"
+    line="  config.action_mailer.default_url_options = {{'{'}} {{'host:'}} '{{ispmail_webmail_hostname}}' {{'}'}}"
+
+- name: Give write access to www-data
+  file: dest={{ispmail_destination}} owner=www-data group=www-data mode=0775 recurse=yes
+
+- name: Create the first admin user
+  shell: "{{bundle_exec}} rails runner \"User.create(email: '{{ispmail_on_rails_admin_email}}', password: '{{ispmail_on_rails_admin_password}}')\""
+  args:
+    chdir: "{{ispmail_destination}}"
