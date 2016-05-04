@@ -4,9 +4,24 @@ This repository contains a playbook and roles that you can use to set up your ow
 
 This repository is a clone of https://git.workaround.org/chaas/ansible-ispmail-jessie.git
 
+# Requirements #
+
+- Vagrant (for testing) and VirtualBox
+- [Ansible](https://ansible.com)
+- SSH keys authentication to root@your-new-mailserver.com
+
+# Usage #
+
+1. Clone this repository
+2. Install Ansible
+3. Install dependencies: ```ansible-galaxy install geerlingguy.letsencrypt zzet.rbenv```
+4. Copy ```group_vars/all.example``` to ```group_vars/all```
+5. Change parameters in group vars and hosts file
+6. ```ansible-playbook ispmail.yml```
+
 # ISPmail on Rails #
 
-The difference from @Signum's respository is the addition of ringe/ispmail-on-rails installation.
+The difference from @Signum's respository is the addition of ringe/ispmail-on-rails installation and the use of Let's Encrypt for SSL
 
 # License #
 
