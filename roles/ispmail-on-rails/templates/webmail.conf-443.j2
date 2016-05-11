@@ -3,8 +3,6 @@
 		ServerAdmin {{ ispmail_postmaster_address }}
 		ServerName {{ ispmail_webmail_hostname }}
 
-		DocumentRoot /var/www/ispmail-on-rails-{{ispmail_on_rails_version}}/public
-
 		# ISPmail on Rails app
 		Alias /admin /var/www/ispmail-on-rails-{{ispmail_on_rails_version}}/public
 		<Location /admin>
@@ -46,8 +44,8 @@
 		#   /usr/share/doc/apache2/README.Debian.gz for more info.
 		#   If both key and certificate are stored in the same file, only the
 		#   SSLCertificateFile directive is needed.
-		SSLCertificateFile	/etc/ssl/certs/mailserver.pem
-		SSLCertificateKeyFile /etc/ssl/private/mailserver.pem
+		SSLCertificateFile    /etc/letsencrypt/live/{{ispmail_webmail_hostname}}/fullchain.pem
+		SSLCertificateKeyFile /etc/letsencrypt/live/{{ispmail_webmail_hostname}}/privkey.pem
 
 		#   Server Certificate Chain:
 		#   Point SSLCertificateChainFile at a file containing the

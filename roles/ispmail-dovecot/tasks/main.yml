@@ -42,7 +42,7 @@
   file: path=/etc/dovecot/dovecot-sql.conf.ext owner=root group=root mode=0640
   notify: restart dovecot
 - name: Create directory for global sieve-after scripts
-  file: path=/etc/dovecot/sieve-after state=directory
+  file: path=/etc/dovecot/sieve-after state=directory group=vmail mode="u=rwx,g=rwx,o=rx"
 - name: Create global sieve-after script to send spam to its mail folder
   copy: src=spam-to-folder.sieve dest=/etc/dovecot/sieve-after/spam-to-folder.sieve
   notify: recompile sieve script

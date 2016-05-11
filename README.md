@@ -21,7 +21,7 @@ This repository is a clone of https://git.workaround.org/chaas/ansible-ispmail-j
 
 # ISPmail on Rails #
 
-The difference from @Signum's respository is the addition of ringe/ispmail-on-rails installation and the use of Let's Encrypt for SSL
+The difference from @Signum's respository is the addition of ringe/ispmail-on-rails installation and use of Let's encrypt for SSL.
 
 # License #
 

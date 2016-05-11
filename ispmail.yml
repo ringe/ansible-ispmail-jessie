@@ -4,7 +4,7 @@
   roles:
   #- dumpvars
   - ispmail-packages
-  - ispmail-certificate
+  - ispmail-letsencrypt
   - ispmail-database
   - ispmail-postfix
   - ispmail-dovecot

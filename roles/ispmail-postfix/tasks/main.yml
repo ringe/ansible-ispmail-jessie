@@ -55,10 +55,10 @@
   command: postconf smtpd_tls_auth_only=yes
 
 - name: Set TLS encryption certificate
-  command: postconf smtpd_tls_cert_file=/etc/ssl/certs/mailserver.pem
+  command: postconf smtpd_tls_cert_file=/etc/letsencrypt/live/{{ispmail_webmail_hostname}}/fullchain.pem
 
 - name: Set TLS encryption key
-  command: postconf smtpd_tls_key_file=/etc/ssl/private/mailserver.pem
+  command: postconf smtpd_tls_key_file=/etc/letsencrypt/live/{{ispmail_webmail_hostname}}/privkey.pem
 
 - name: Copying patch for Debian bug 739738
   copy: src=spamassassin.patch dest=/tmp/spamassassin.patch
