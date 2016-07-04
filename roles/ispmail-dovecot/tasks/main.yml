@@ -24,7 +24,7 @@
   copy: src=10-master.conf dest=/etc/dovecot/conf.d/10-master.conf
   notify: restart dovecot
 - name: Copying SSL configuration (10-ssl.conf)
-  copy: src=10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
+  template: src=10-ssl.conf dest=/etc/dovecot/conf.d/10-ssl.conf
   notify: restart dovecot
 - name: Copying LMTP configuration (20-lmtp.conf - enable sieve plugin)
   copy: src=20-lmtp.conf dest=/etc/dovecot/conf.d/20-lmtp.conf
