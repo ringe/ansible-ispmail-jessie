@@ -24,6 +24,6 @@ ispmail_certificate_days_valid: 3650
 
 passenger_friendly_error_pages: yes
 
-ispmail_on_rails_version: 0.2.3
+ispmail_on_rails_version: 0.3.1
 ispmail_on_rails_admin_email: admin@example.org
 ispmail_on_rails_admin_password: ChangeMeAdmin
