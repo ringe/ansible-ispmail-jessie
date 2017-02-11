@@ -1,4 +1,5 @@
 ---
 dependencies:
+  - { role: geerlingguy.git, when: "ispmail_webmail_hostname != '10.0.0.100'" }
   - { role: geerlingguy.letsencrypt, when: "ispmail_webmail_hostname != '10.0.0.100'" }
   - { role: ispmail-certificate, when: "ispmail_webmail_hostname == '10.0.0.100'" }
