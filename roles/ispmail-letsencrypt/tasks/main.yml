@@ -2,5 +2,5 @@
 - name: Set up let's encrypt SSL
   shell: "./letsencrypt-auto --apache -d {{ispmail_webmail_hostname}}"
   args:
-    chdir: /opt/letsencrypt
+    chdir: /opt/certbot
     creates: "/etc/letsencrypt/live/{{ispmail_webmail_hostname}}/fullchain.pem"
