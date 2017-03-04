@@ -22,7 +22,8 @@
 - name: Install bundler
   gem:
     name: bundler
-    state: installed
+    state: present
+    executable: /usr/local/rbenv/shims/gem
 
 - name: Install bundle
   bundler: state=present chdir={{ispmail_destination}} executable="/usr/local/rbenv/shims/bundle"
