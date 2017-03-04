@@ -19,6 +19,11 @@
   shell: gem unpack ispmail-on-rails -v{{ispmail_on_rails_version}} chdir="/var/www"
     creates={{ispmail_destination}}
 
+- name: Install bundler
+  gem:
+    name: bundler
+    state: installed
+
 - name: Install bundle
   bundler: state=present chdir={{ispmail_destination}} executable="/usr/local/rbenv/shims/bundle"
   notify: restart apache
