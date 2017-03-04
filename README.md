@@ -9,6 +9,9 @@ This repository is a clone of https://git.workaround.org/chaas/ansible-ispmail-j
 - Vagrant (for testing) and VirtualBox
 - [Ansible](https://ansible.com)
 - SSH keys authentication to root@your-new-mailserver.com
+- Note that you may need more memory to apply the playbook
+  than you need to run the services later. Activate swap if
+  necessary.
 
 # Usage #
 
