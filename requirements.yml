@@ -1,0 +1,11 @@
+- src: https://github.com/geerlingguy/ansible-role-git
+  version: 6f48135cc58c2635f30086c005bdb895fd16946a
+  name: geerlingguy.git
+
+- src: https://github.com/geerlingguy/ansible-role-certbot
+  version: 3dedd45961a41ae7d01bdc408158daeabf7acaa7
+  name: geerlingguy.letsencrypt
+
+- src: https://github.com/zzet/ansible-rbenv-role
+  version: 68be02163d47faba56b3aec4ed3900a3c9500305
+  name: zzet.rbenv

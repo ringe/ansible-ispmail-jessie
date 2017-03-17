@@ -9,12 +9,15 @@ This repository is a clone of https://git.workaround.org/chaas/ansible-ispmail-j
 - Vagrant (for testing) and VirtualBox
 - [Ansible](https://ansible.com)
 - SSH keys authentication to root@your-new-mailserver.com
+- Note that you may need more memory to apply the playbook
+  than you need to run the services later. Activate swap if
+  necessary.
 
 # Usage #
 
 1. Clone this repository
 2. Install Ansible
-3. Install dependencies: ```ansible-galaxy install geerlingguy.letsencrypt zzet.rbenv```
+3. Install dependencies: ```ansible-galaxy install -r requirements.yml```
 4. Copy ```group_vars/all.example``` to ```group_vars/all```
 5. Change parameters in group vars and hosts file
 6. ```ansible-playbook ispmail.yml```
